@@ -1,22 +1,6 @@
+#include "assignasisten.h"
 #include <stdio.h>
 #include <string.h>
-
-typedef struct {
-	char kode_praktikum[10];
-	char Rombongan[10];
-	int count_asisten;
-	char nama_asisten[3];
-} jadwal_t;
-
-typedef struct daftarAsisten{
-	char nama[10];
-	int praktikum[3];
-	int count_praktikum;
-	int hari_berhalangan[3];
-	int count_hari_berhalangan;
-} keterangan;
-
-jadwal_t LAB1[12][5], LAB2[12][5], LAB3[12][5], LSS[12][5];
 
 void assignAsisten(char *c){
 	do{
@@ -316,7 +300,7 @@ void validasi(jadwal_t (*arr)[5],int m,int h,keterangan infoAsisten,char c){
 }
 
 //fungsi utama assign asisten
-void fungsiMain(){
+void fungsiMainAssignAsisten(){
 	char c;
 	int m;
 	keterangan infoAsisten;
@@ -352,29 +336,4 @@ void fungsiMain(){
 		//input kode Asisten 
 		assignAsisten(&c);
 	}	
-}
-
-int main(){
-	strcpy(LAB1[0][0].kode_praktikum,"EL2205");
-		strcpy(LAB1[0][1].kode_praktikum,"EL2205");
-		strcpy(LAB1[0][2].kode_praktikum,"EL2205");
-		strcpy(LAB1[0][3].kode_praktikum,"EL2205");
-		strcpy(LAB1[0][4].kode_praktikum,"EL2205");
-	LAB1[0][0].count_asisten=0;
-		LAB1[0][1].count_asisten=0;
-		LAB1[0][2].count_asisten=0;
-		LAB1[0][3].count_asisten=0;
-		LAB1[0][4].count_asisten=0;
-	fungsiMain();
-	
-		for (int j = 0; j < 5; ++j)
-		{
-			for (int i = 0; i <3; ++i)
-			{
-				/* code */
-				printf("%c",LAB1[0][j].nama_asisten[i]);	
-			}
-			printf("\n");
-		}
-	return 0;
 }
