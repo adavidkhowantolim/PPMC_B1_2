@@ -1,5 +1,6 @@
 #include "assignasisten.h"
 
+//membaca kode nama asisten praktikum
 void assignAsisten(char *c){
 	do{
 		printf("Pilih Asisten (A-N): ");scanf(" %c",c);
@@ -12,6 +13,7 @@ void assignAsisten(char *c){
 	} while ((*c<65)||((*c>78)&&(*c<97))||(*c>110));
 }
 
+//membaca minggu
 void assignMinggu(int *m){
 	do{
 		printf("Minggu: ");scanf("%d",m);
@@ -21,6 +23,7 @@ void assignMinggu(int *m){
 	} while ((*m<3)||(*m>12));
 }
 
+//membaca hari
 void assignHari(char *h){
 	do{
 		printf("Hari: ");scanf("%s",h);
@@ -30,6 +33,7 @@ void assignHari(char *h){
 	} while (strcmp(h,"Senin")!=0&&strcmp(h,"Selasa")!=0&&strcmp(h,"Rabu")!=0&&strcmp(h,"Kamis")!=0&&strcmp(h,"Jumat")!=0);
 }
 
+//membaca ruangan
 void assignRuang(char *r){
 	do{
 		printf("Ruang: ");scanf("%s",r);
@@ -196,6 +200,7 @@ char* konversiKode(int k){
 
 }
 
+//memvalidasi apakah pada hari,minggu dan ruangan yang telah diinput kosong (tidak ada praktikum)
 int isEmptySchedule(jadwal_t (*ruang)[5],int m,int h){
 	if (strcmp(ruang[m-3][h-1].kode_praktikum,"")==0){
 		return(1);
