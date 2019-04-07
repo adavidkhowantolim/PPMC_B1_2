@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-typedef struct {
-	char kode_praktikum[6];
-	char rombongan[2];
-} jadwal_t;
+#include "schedulemanual.h"
 
 //pengecekan apakah rombongan dengan kode praktikum tersebut sudah terdaftar pada minggu tersebut
 int isJadwal_exist(char kode[6], jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadwal_t (*R4)[5], char *romb, int minggu){
@@ -107,6 +100,7 @@ int isRuang_kosong(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 			return 0;
 		}
 	}
+}
 // mengecek ruang yang dimasukkan apakah kosong atau terpakai
 void ruang_kosong(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadwal_t (*R4)[5],char *kode, char *ruang, int minggu, int hari){
 	int kode1 = strcmp(R1[minggu-1][hari-1].kode_praktikum,"");
@@ -334,7 +328,7 @@ void jadwal_el2205(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 	}
 }
 
-void jadwal_prak(jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5], jadwal_t (*LSS)[5]){
+void jadwal_prak(jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5], jadwal_t (*LSS)[5]) {
 	//asumsi pada semua elemen [minggu][hari] LAB1, LAB2, LAB3, LSS sudah terinisialisasi ""
 	char kode_temp[6]="";
 	char romb_temp[2]="";
@@ -343,7 +337,7 @@ void jadwal_prak(jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5], 
 	int hari_temp=0;
 
 	printf("Isi `q` atau `Q` untuk kembali ke menu\n");
-	while ((strcmp(kode_temp,"q")!=0 || strcmp(kode_temp,"Q")!=0) && strcmp(kode_temp,"EB2200")==0 && strcmp(kode_temp,"EL2208")==0 && strcmp(kode_temp,"EL2205")==0)
+	while ((strcmp(kode_temp,"q")!=0 || strcmp(kode_temp,"Q")!=0) && strcmp(kode_temp,"EB2200")==0 && strcmp(kode_temp,"EL2208")==0 && strcmp(kode_temp,"EL2205")==0){
 		printf("Pilih Kode Praktikum (EL2205, EL2208, EB2200): ");
 		scanf("%s",kode_temp);
 		if (strcmp(kode_temp,"EB2200")==0) {
@@ -376,8 +370,4 @@ void jadwal_prak(jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5], 
 			strcpy(LSS[minggu_temp-1][hari_temp-1].rombongan,romb_temp);
 		} 
 	}
-}
-
-int main(){
-	return 0;
 }
