@@ -1,6 +1,4 @@
 #include "assignasisten.h"
-#include <stdio.h>
-#include <string.h>
 
 void assignAsisten(char *c){
 	do{
@@ -199,7 +197,7 @@ char* konversiKode(int k){
 }
 
 int isEmptySchedule(jadwal_t (*ruang)[5],int m,int h){
-	if (ruang[m-3][h-1].kode_praktikum==NULL){
+	if (strcmp(ruang[m-3][h-1].kode_praktikum,"")==0){
 		return(1);
 	} else
 	{
