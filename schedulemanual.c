@@ -34,7 +34,6 @@ int isJadwal_exist(char kode[7], jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t 
 		}
 	}
 }
-
 //konversi hari dari string menjadi integer
 int strToInt_hari(char hari[7]){
 	if (!strcmp(hari,"Senin")){
