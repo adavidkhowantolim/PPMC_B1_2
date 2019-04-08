@@ -1,3 +1,25 @@
+//***********************************************************//
+// [ Source Code ]
+//
+// Institution : Institut Teknologi Bandung
+// Name : David Khowanto
+// File Name : schedulemanual.c
+// Dependency : schedulemanual.h
+//
+// 
+/* Description:
+Semua Prosedur dan Fungsi dalam file schedulemanual.c hanya digunakan untuk
+prosedur [MODE SCHEDULE] atau pengisian schedule secara manual oleh user.
+Validasi dan syarat-syarat sesuai dengan yang tertera pada Tugas_Besar_versi_final.pdf
+-Tidak ada asumsi yang diambil sendiri oleh programmer
+-Tidak ada syarat dari soal yang di skip programmer
+
+Status:
+1. David Khowanto - 13217056 : Create the file, fix all bug,
+							   and test all possibilities according
+							   to description in the pdf file
+*/
+//***********************************************************//
 #include "schedulemanual.h"
 
 //pengecekan apakah rombongan dengan kode praktikum tersebut sudah terdaftar pada minggu tersebut
