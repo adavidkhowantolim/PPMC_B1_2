@@ -1,3 +1,25 @@
+//***********************************************************//
+// [ Source Code ]
+//
+// Institution : Institut Teknologi Bandung
+// Name : Louis
+// File Name : assignasisten.c
+// Dependency : assignasisten.h
+//
+// 
+/* Description:
+Semua Prosedur dan Fungsi dalam file assignasisten.c hanya digunakan untuk
+prosedur [MODE ASSIGN SCHEDULE] atau pengisian assign asisten secara manual oleh user.
+Validasi dan syarat-syarat sesuai dengan yang tertera pada Tugas_Besar_versi_final.pdf
+-Dengan asumsi: input 'q' atau 'Q' hanya dapat dibaca pada pemilihan asisten saja, 
+ untuk validasi input asisten, hari, minggu, dan ruang dilakukan berulang hingga benar
+ serta validasi syarat yang diberikan dari soal akan mengulang input dari awal
+-Tidak ada syarat dari soal yang di skip programmer
+Status:
+1. Louis - 13217072 : Create the file, fix all bug,
+and test all possibilities according to description in the pdf file
+*/
+//***********************************************************//
 #include "assignasisten.h"
 
 //membaca kode nama asisten praktikum
