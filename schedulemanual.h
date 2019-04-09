@@ -30,7 +30,7 @@ Status:
 
 typedef struct {
 	char kode_praktikum[7];
-	char rombongan[3];
+	char Rombongan[3];
 } jadwal_t; 
 
 //pengecekan apakah rombongan dengan kode praktikum tersebut sudah terdaftar pada minggu tersebut
