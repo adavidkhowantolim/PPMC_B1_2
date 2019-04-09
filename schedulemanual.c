@@ -16,16 +16,16 @@ Validasi dan syarat-syarat sesuai dengan yang tertera pada Tugas_Besar_versi_fin
 
 Status:
 1. David Khowanto - 13217056 : Create the file, fix all bug,
-							   and test all possibilities according
-							   to description in the pdf file
+				and test all possibilities according
+				to description in the pdf file
 */
 //***********************************************************//
 #include "schedulemanual.h"
 
 //pengecekan apakah rombongan dengan kode praktikum tersebut sudah terdaftar pada minggu tersebut
 int isJadwal_exist(char kode[7], jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadwal_t (*R4)[5], char *romb, int minggu){
-	char *p,*q,*r,*s;
-	char *a,*b,*c,*d;
+	char *p,*q,*r,*s; //variabel sementara untuk menampung kode praktikum dari array data, hanya untuk mempermudah debugging
+	char *a,*b,*c,*d; //variabel sementara untuk menampung rombongan dari array data, hanya untuk mempermudah debugging
 	int exist1, exist2, exist3, exist4;
 	for (int hari = 1; hari < 6; ++hari) {
 		p=R1[minggu-3][hari-1].kode_praktikum;
@@ -40,6 +40,7 @@ int isJadwal_exist(char kode[7], jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t 
 		exist2 = abs(strcmp(q,kode))+abs(strcmp(b,romb)); // sehingga menandakan rombongan dengan kode praktikum tersebut sudah
 		exist3 = abs(strcmp(r,kode))+abs(strcmp(c,romb)); // terdaftar pada minggu tersebut
 		exist4 = abs(strcmp(s,kode))+abs(strcmp(d,romb));
+		//jika exist 1-4 ==0 maka terdapat jadwal dengan rombongan yang sama pada minggu itu
 		if (exist1==0 || exist2==0 || exist3==0 || exist4==0) {
 			return 1;
 		} else if (hari==5){
@@ -235,10 +236,12 @@ void jadwal_el2208(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 	do {
 		printf("Rombongan (A1, A2, A3, B1, B2, B3, atau C): ");	
 		scanf("%s",romb);
-		if (strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0 && strcmp(romb,"A1")!=0 && strcmp(romb,"A2")!=0 && strcmp(romb,"A3")!=0 && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"B3")!=0){
+		if (strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0 && strcmp(romb,"A1")!=0 
+		    && strcmp(romb,"A2")!=0 && strcmp(romb,"A3")!=0 && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"B3")!=0){
 			printf("ERROR!! EL2208 hanya terdiri atas rombongan (A1, A2, A3, B1, B2, B3, dan C).\n");
 		}
-	} while (strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0 && strcmp(romb,"A1")!=0 && strcmp(romb,"A2")!=0 && strcmp(romb,"A3")!=0 && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"B3")!=0);
+	} while (strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0 && strcmp(romb,"A1")!=0 && strcmp(romb,"A2")!=0 
+		 && strcmp(romb,"A3")!=0 && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"B3")!=0);
 	//INPUT MINGGU
 	do {
 		printf("Minggu ke: ");	
@@ -248,12 +251,14 @@ void jadwal_el2208(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 		} else {
 			 // pengecekan untuk pengisian rombongan yang lebih dari 1 (romb==A atau romb==B)
 			if (strcmp(romb,"A")==0){
-				if (isJadwal_exist(kode,R1,R2,R3,R4,"A1",*minggu)==1 || isJadwal_exist(kode,R1,R2,R3,R4,"A2",*minggu)==1 || isJadwal_exist(kode,R1,R2,R3,R4,"A3",*minggu)==1){
+				if (isJadwal_exist(kode,R1,R2,R3,R4,"A1",*minggu)==1 || isJadwal_exist(kode,R1,R2,R3,R4,"A2",*minggu)==1 
+				    || isJadwal_exist(kode,R1,R2,R3,R4,"A3",*minggu)==1){
 					printf("ERROR!! Terdapat Rombongan yang sama pada minggu %d\n",*minggu);
 					return;
 				}
 			}else if (strcmp(romb,"B")==0){
-				if (isJadwal_exist(kode,R1,R2,R3,R4,"B1",*minggu)==1 || isJadwal_exist(kode,R1,R2,R3,R4,"B2",*minggu)==1 || isJadwal_exist(kode,R1,R2,R3,R4,"B3",*minggu)==1){
+				if (isJadwal_exist(kode,R1,R2,R3,R4,"B1",*minggu)==1 || isJadwal_exist(kode,R1,R2,R3,R4,"B2",*minggu)==1 
+				    || isJadwal_exist(kode,R1,R2,R3,R4,"B3",*minggu)==1){
 					printf("ERROR!! Terdapat Rombongan yang sama pada minggu %d\n",*minggu);
 					return;
 				}
@@ -265,7 +270,10 @@ void jadwal_el2208(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 				}
 			}
 		}
-	} while ((*minggu<3 || *minggu>12) || (isJadwal_exist(kode,R1,R2,R3,R4,"B1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"B2",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"B3",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"A1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"A2",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"A3",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,romb,*minggu)==1));
+	} while ((*minggu<3 || *minggu>12) || (isJadwal_exist(kode,R1,R2,R3,R4,"B1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"B2",*minggu)==1 
+					       && isJadwal_exist(kode,R1,R2,R3,R4,"B3",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"A1",*minggu)==1 
+					       && isJadwal_exist(kode,R1,R2,R3,R4,"A2",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"A3",*minggu)==1 
+					       && isJadwal_exist(kode,R1,R2,R3,R4,romb,*minggu)==1));
 	//INPUT HARI
 	do {
 		printf("Hari: ");
@@ -279,7 +287,9 @@ void jadwal_el2208(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 	} while (strcmp(day,"Senin")!=0 && strcmp(day,"Selasa")!=0 && strcmp(day,"Rabu")!=0 && strcmp(day,"Kamis")!=0 && strcmp(day,"Jumat")!=0);
 	
 	//VALIDASI apakah ada EL2205 pada hari itu untuk rombongan A dan B EL2208
-	if ((strcmp(romb,"C")!=0 && strcmp(R1[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2205")==0)||(strcmp(romb,"C")!=0 && strcmp(R2[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2205")==0)||(strcmp(romb,"C")!=0 && strcmp(R3[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2205")==0)){
+	if ((strcmp(romb,"C")!=0 && strcmp(R1[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2205")==0)
+	    ||(strcmp(romb,"C")!=0 && strcmp(R2[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2205")==0)
+	    ||(strcmp(romb,"C")!=0 && strcmp(R3[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2205")==0)){
 		printf("Praktikum EL2205(Rombongan A,B,C) tidak boleh dilaksanakan pada hari yang sama dengan EL2208(Rombongan A,B)!\n");
 		return;
 	}
@@ -337,10 +347,12 @@ void jadwal_el2205(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 	do {
 		printf("Rombongan (A1, A2, B1, B2, C1, atau C2): ");	
 		scanf("%s",romb);
-		if (strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0 && strcmp(romb,"A1")!=0 && strcmp(romb,"A2")!=0 && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"C1")!=0 && strcmp(romb,"C2")!=0){
+		if (strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0 && strcmp(romb,"A1")!=0 && strcmp(romb,"A2")!=0 
+		    && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"C1")!=0 && strcmp(romb,"C2")!=0){
 			printf("ERROR!! EL2205 hanya terdiri atas rombongan (A1, A2, B1, B2, C1, atau C2).\n");
 		}
-	} while (strcmp(romb,"C1")!=0 && strcmp(romb,"C2")!=0 && strcmp(romb,"A1")!=0 && strcmp(romb,"A2")!=0 && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0);
+	} while (strcmp(romb,"C1")!=0 && strcmp(romb,"C2")!=0 && strcmp(romb,"A1")!=0 && strcmp(romb,"A2")!=0 
+		 && strcmp(romb,"B1")!=0 && strcmp(romb,"B2")!=0 && strcmp(romb,"A")!=0 && strcmp(romb,"B")!=0 && strcmp(romb,"C")!=0);
 	//INPUT MINGGU
 	do {
 		printf("Minggu ke: ");	
@@ -372,7 +384,10 @@ void jadwal_el2205(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 				}
 			}
 		}
-	} while ((*minggu<3 || *minggu>12) || (isJadwal_exist(kode,R1,R2,R3,R4,"A1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"A2",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"B1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"B2",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"C1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"C2",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,romb,*minggu)==1));
+	} while ((*minggu<3 || *minggu>12) || (isJadwal_exist(kode,R1,R2,R3,R4,"A1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"A2",*minggu)==1 
+					       && isJadwal_exist(kode,R1,R2,R3,R4,"B1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"B2",*minggu)==1 
+					       && isJadwal_exist(kode,R1,R2,R3,R4,"C1",*minggu)==1 && isJadwal_exist(kode,R1,R2,R3,R4,"C2",*minggu)==1 
+					       && isJadwal_exist(kode,R1,R2,R3,R4,romb,*minggu)==1));
 	//INPUT HARI
 	do {
 		printf("Hari: ");
@@ -385,7 +400,10 @@ void jadwal_el2205(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 	} while (strcmp(day,"Senin")!=0 && strcmp(day,"Selasa")!=0 && strcmp(day,"Rabu")!=0 && strcmp(day,"Kamis")!=0 && strcmp(day,"Jumat")!=0);
 	
 	//VALIDASI apakah ada EL2208(selain romb C) pada hari itu (strcmp rombongan lain dengan "C" menghasilkan nilai !=0)
-	if ((strcmp(R1[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R1[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0)||(strcmp(R2[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R2[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0)||(strcmp(R3[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R3[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0) || (strcmp(R4[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R4[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0)){
+	if ((strcmp(R1[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R1[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0)
+	    ||(strcmp(R2[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R2[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0)
+	    ||(strcmp(R3[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R3[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0) 
+	    || (strcmp(R4[(*minggu)-3][(*hari)-1].rombongan,"C")!=0 && strcmp(R4[(*minggu)-3][(*hari)-1].kode_praktikum,"EL2208")==0)){
 		printf("Praktikum EL2205(Rombongan A,B,C) tidak boleh dilaksanakan pada hari yang sama dengan EL2208(Rombongan A,B)\n");
 		return;
 	}
@@ -435,9 +453,11 @@ void jadwal_el2205(jadwal_t (*R1)[5], jadwal_t (*R2)[5], jadwal_t (*R3)[5], jadw
 // PROSEDUR PENGISIAN ARRAY
 void save_array(jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5], jadwal_t (*LSS)[5], char *kode_temp,char *romb_temp,char ruang3_temp[][5],char *ruang_temp,int minggu_temp, int hari_temp){
 	//Data disimpan hanya apabila semua variabel sementara terisi
-	if (strcmp(romb_temp,"")!=0 || strcmp(ruang_temp,"")!=0 || strcmp(ruang3_temp[0],"")!=0 || strcmp(ruang3_temp[1],"")!=0 || strcmp(ruang3_temp[2],"")!=0 || minggu_temp!=0 || hari_temp!=0){
+	if (strcmp(romb_temp,"")!=0 || strcmp(ruang_temp,"")!=0 || strcmp(ruang3_temp[0],"")!=0 
+	    || strcmp(ruang3_temp[1],"")!=0 || strcmp(ruang3_temp[2],"")!=0 || minggu_temp!=0 || hari_temp!=0){
 		//penyimpanan data untuk input rombongan > 1
-		if ((strcmp(kode_temp,"EL2208")==0 && (strcmp(romb_temp,"A")==0 || strcmp(romb_temp,"B")==0)) || (strcmp(kode_temp,"EL2205")==0 && (strcmp(romb_temp,"A")==0 || strcmp(romb_temp,"B")==0 || strcmp(romb_temp,"C")==0))){
+		if ((strcmp(kode_temp,"EL2208")==0 && (strcmp(romb_temp,"A")==0 || strcmp(romb_temp,"B")==0)) 
+		    || (strcmp(kode_temp,"EL2205")==0 && (strcmp(romb_temp,"A")==0 || strcmp(romb_temp,"B")==0 || strcmp(romb_temp,"C")==0))){
 			// simpan data untuk kode praktikum EL2208
 			if (strcmp(kode_temp,"EL2208")==0) {
 				//iterasi 3 kali sebab terdapat 3 rombongan untuk diinput
@@ -618,5 +638,6 @@ void jadwal_prak(jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5], 
 		//MENGISI DATA KEDALAM PENNYIMPANAN (ARRAY)
 		// menyimpan nilai dari variabel sementara ke dalam array data
 		save_array(LAB1,LAB2,LAB3,LSS,kode_temp,romb_temp,ruang3_temp,ruang_temp,minggu_temp,hari_temp);
-	} while ((strcmp(kode_temp,"q")!=0 || strcmp(kode_temp,"Q")!=0) || strcmp(kode_temp,"EB2200")==0 || strcmp(kode_temp,"EL2208")==0 || strcmp(kode_temp,"EL2205")==0);
+	} while ((strcmp(kode_temp,"q")!=0 || strcmp(kode_temp,"Q")!=0) 
+		 || strcmp(kode_temp,"EB2200")==0 || strcmp(kode_temp,"EL2208")==0 || strcmp(kode_temp,"EL2205")==0);
 }
