@@ -24,13 +24,14 @@ and test all possibilities according to description in the pdf file
 #define ASSIGNASISTEN_H
 #include <stdio.h>
 #include <string.h>
+#include "schedulemanual.h"
 
-typedef struct {
+/*typedef struct {
 	char kode_praktikum[10];
 	char Rombongan[10];
 	int count_asisten;
 	char nama_asisten[3];
-} jadwal_t;
+} jadwal_t;*/
 
 typedef struct daftarAsisten{
 	char nama[10];
@@ -40,7 +41,7 @@ typedef struct daftarAsisten{
 	int count_hari_berhalangan;
 } keterangan;
 
-jadwal_t LAB1[12][5], LAB2[12][5], LAB3[12][5], LSS[12][5];
+//jadwal_t LAB1[12][5], LAB2[12][5], LAB3[12][5], LSS[12][5];
 
 void assignAsisten(char *c);
 void assignMinggu(int *m);
@@ -51,6 +52,6 @@ char* konversiKode(int k);
 int isEmptySchedule(jadwal_t (*ruang)[5],int m,int h);
 int isTidakBerhalangan(keterangan* a,int hari);
 int isSesuaiPraktikum(keterangan *a,int praktikum);
-void validasi(jadwal_t (*arr)[5],int m,int h,keterangan infoAsisten,char c);
-void fungsiMainAssignAsisten();
+void validasi(jadwal_t (*arr)[5],int m,int h,keterangan infoAsisten,char c,jadwal_t (*LAB1)[5],jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5],jadwal_t (*LSS)[5]);
+void fungsiMainAssignAsisten(jadwal_t (*LAB1)[5],jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5],jadwal_t (*LSS)[5]);
 #endif

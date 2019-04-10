@@ -21,6 +21,7 @@ and test all possibilities according to description in the pdf file
 */
 //***********************************************************//
 #include "assignasisten.h"
+#include "schedulemanual.h"
 
 //membaca kode nama asisten praktikum
 void assignAsisten(char *c){
@@ -59,10 +60,10 @@ void assignHari(char *h){
 void assignRuang(char *r){
 	do{
 		printf("Ruang: ");scanf("%s",r);
-		if (strcmp(r,"LAB1")!=0&&strcmp(r,"LAB2")!=0&&strcmp(r,"LAB1")!=0&&strcmp(r,"LAB2")!=0){
+		if (strcmp(r,"LAB1")!=0&&strcmp(r,"LAB2")!=0&&strcmp(r,"LAB3")!=0&&strcmp(r,"LSS")!=0){
 			printf("Ruang yang Anda masukkan salah. Ulangi!\n");
 		}
-	} while(strcmp(r,"LAB1")!=0&&strcmp(r,"LAB2")!=0&&strcmp(r,"LAB1")!=0&&strcmp(r,"LAB2")!=0);
+	} while(strcmp(r,"LAB1")!=0&&strcmp(r,"LAB2")!=0&&strcmp(r,"LAB3")!=0&&strcmp(r,"LSS")!=0);
 }
 
 //konversi string menjadi integer
@@ -154,7 +155,7 @@ void assignPrakHari(keterangan* a,char c){
 			break;
 		case 'H' :
 			strcpy(a->nama,"Hero");
-			a->praktikum[0]=3;
+			a->praktikum[0]=2;
 			a->count_praktikum=1;
 			a->hari_berhalangan[0]=4;
 			a->count_hari_berhalangan=1;
@@ -170,7 +171,7 @@ void assignPrakHari(keterangan* a,char c){
 			break;
 		case 'J' :
 			strcpy(a->nama,"Joko");
-			a->praktikum[0]=3;
+			a->praktikum[0]=2;
 			a->count_praktikum=1;
 			a->hari_berhalangan[0]=5;
 			a->count_hari_berhalangan=1;
@@ -185,14 +186,14 @@ void assignPrakHari(keterangan* a,char c){
 			break;
 		case 'L' :
 			strcpy(a->nama,"Luis");
-			a->praktikum[0]=3;
+			a->praktikum[0]=2;
 			a->count_praktikum=1;
 			a->hari_berhalangan[0]=0;
 			a->count_hari_berhalangan=0;
 			break;
 		case 'M' :
 			strcpy(a->nama,"Mini");
-			a->praktikum[0]=3;
+			a->praktikum[0]=2;
 			a->count_praktikum=1;
 			a->hari_berhalangan[0]=3;
 			a->hari_berhalangan[1]=4;
@@ -261,7 +262,7 @@ int isSesuaiPraktikum(keterangan* a, int praktikum){
 	return 0;
 }
 
-void validasi(jadwal_t (*arr)[5],int m,int h,keterangan infoAsisten,char c){
+void validasi(jadwal_t (*arr)[5],int m,int h,keterangan infoAsisten,char c,jadwal_t (*LAB1)[5],jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5],jadwal_t (*LSS)[5]){
 	int found=0;
 	/*validasi apakah pada hari minggu, hari dan lab yang diinput 
 	ada pada array schedule terdapat praktikum*/
@@ -325,7 +326,7 @@ void validasi(jadwal_t (*arr)[5],int m,int h,keterangan infoAsisten,char c){
 }
 
 //fungsi utama assign asisten
-void fungsiMainAssignAsisten(){
+void fungsiMainAssignAsisten(jadwal_t (*LAB1)[5],jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5],jadwal_t (*LSS)[5]){
 	char c;
 	int m;
 	keterangan infoAsisten;
@@ -346,16 +347,15 @@ void fungsiMainAssignAsisten(){
 		//assignment asisten praktikum
 		assignPrakHari(&infoAsisten,c);
 
-		jadwal_t temp;
 		
 		if (!(strcmp(r,"LAB1"))) {
-			validasi(LAB1,m,konversiString(h),infoAsisten,c);
+			validasi(LAB1,m,konversiString(h),infoAsisten,c,LAB1,LAB2,LAB3,LSS);
 		} else if (!(strcmp(r,"LAB2"))){
-			validasi(LAB2,m,konversiString(h),infoAsisten,c);
+			validasi(LAB2,m,konversiString(h),infoAsisten,c,LAB1,LAB2,LAB3,LSS);
 		} else if (!(strcmp(r,"LAB3"))){
-			validasi(LAB3,m,konversiString(h),infoAsisten,c);
+			validasi(LAB3,m,konversiString(h),infoAsisten,c,LAB1,LAB2,LAB3,LSS);
 		} else if (!(strcmp(r,"LSS"))){
-			validasi(LSS,m,konversiString(h),infoAsisten,c);
+			validasi(LSS,m,konversiString(h),infoAsisten,c,LAB1,LAB2,LAB3,LSS);
 		}
 		
 		//input kode Asisten 
