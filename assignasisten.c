@@ -49,7 +49,7 @@ void assignMinggu(int *m){
 //membaca hari
 void assignHari(char *h){
 	do{
-		printf("Hari: ");scanf("%s",h);
+		printf("Hari: ");scanf(" %s",h);
 		if (strcmp(h,"Senin")!=0&&strcmp(h,"Selasa")!=0&&strcmp(h,"Rabu")!=0&&strcmp(h,"Kamis")!=0&&strcmp(h,"Jumat")!=0){
 			printf("Hari yang Anda masukkan harus pada hari kerja. Ulangi!\n");
 		}
@@ -59,7 +59,7 @@ void assignHari(char *h){
 //membaca ruangan
 void assignRuang(char *r){
 	do{
-		printf("Ruang: ");scanf("%s",r);
+		printf("Ruang: ");scanf(" %s",r);
 		if (strcmp(r,"LAB1")!=0&&strcmp(r,"LAB2")!=0&&strcmp(r,"LAB3")!=0&&strcmp(r,"LSS")!=0){
 			printf("Ruang yang Anda masukkan salah. Ulangi!\n");
 		}
@@ -301,8 +301,10 @@ void validasi(jadwal_t (*arr)[5],int m,int h,keterangan infoAsisten,char c,jadwa
 						if(arr[m-3][h-1].count_asisten==1){
 							arr[m-3][h-1].nama_asisten[1]=',';
 							arr[m-3][h-1].nama_asisten[2]=c;
+							arr[m-3][h-1].nama_asisten[3]='\0';
 						} else {
 							arr[m-3][h-1].nama_asisten[0]=c;
+							arr[m-3][h-1].nama_asisten[1]='\0';
 						}
 						arr[m-3][h-1].count_asisten++;
 					} else { //found==1
