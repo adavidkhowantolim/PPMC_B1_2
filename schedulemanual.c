@@ -19,8 +19,8 @@ Validasi dan syarat-syarat sesuai dengan yang tertera pada Tugas_Besar_versi_fin
 
 Status:
 1. David Khowanto - 13217056 : Create the file, fix all bug,
-								and test all possibilities according
-								to description in the pdf file
+				and test all possibilities according
+				to description in the pdf file
 */
 //***********************************************************//
 #include "schedulemanual.h"

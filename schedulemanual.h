@@ -31,7 +31,7 @@ Status:
 typedef struct {
 	char kode_praktikum[7];
 	char Rombongan[3];
-	char nama_asisten[3];
+	char nama_asisten[5];
 	int count_asisten;
 } jadwal_t; 
 

@@ -1,4 +1,3 @@
-
 //***********************************************************//
 // [ Source Code ]
 //
@@ -21,7 +20,7 @@ Status:
 //***********************************************************//
 #include "schedulemanual.h"
 #include "assignasisten.h"
-#include "load.h"
+#include "load1.h"
 #include "save.h"
 
 #define MAXCHAR 1000
@@ -35,22 +34,27 @@ int main()
 	char filename[100];
 	jadwal_t LAB1[10][5], LAB2[10][5], LAB3[10][5], LSS[10][5];
 
-	for (int i=0; i<=10; i++){
-		for (int j=0; j<=5; j++){
-			LAB1[i][j].kode_praktikum[0] = '\0';LAB1[i][j].Rombongan[0] = '\0';LAB1[i][j].nama_asisten[0] = '\0';LAB1[i][j].count_asisten=0;
-			LAB2[i][j].kode_praktikum[0] = '\0';LAB2[i][j].Rombongan[0] = '\0';LAB2[i][j].nama_asisten[0] = '\0';LAB2[i][j].count_asisten=0;
-			LAB3[i][j].kode_praktikum[0] = '\0';LAB3[i][j].Rombongan[0] = '\0';LAB3[i][j].nama_asisten[0] = '\0';LAB3[i][j].count_asisten=0;
-			LSS[i][j].kode_praktikum[0] = '\0';LSS[i][j].Rombongan[0] = '\0';LSS[i][j].nama_asisten[0] = '\0';LSS[i][j].count_asisten=0;
-		}
-	}
-
 	do {
+		for (int i=0; i<=10; i++){
+			for (int j=0; j<=5; j++){
+				strcpy(LAB1[i][j].kode_praktikum,"\0");strcpy(LAB1[i][j].Rombongan,"\0");strcpy(LAB1[i][j].nama_asisten,"\0");LAB1[i][j].count_asisten=0;
+				strcpy(LAB2[i][j].kode_praktikum,"\0");strcpy(LAB2[i][j].Rombongan,"\0");strcpy(LAB2[i][j].nama_asisten,"\0");LAB2[i][j].count_asisten=0;
+				strcpy(LAB3[i][j].kode_praktikum,"\0");strcpy(LAB3[i][j].Rombongan,"\0");strcpy(LAB3[i][j].nama_asisten,"\0");LAB3[i][j].count_asisten=0;
+				strcpy(LSS[i][j].kode_praktikum,"\0");strcpy(LSS[i][j].Rombongan,"\0");strcpy(LSS[i][j].nama_asisten,"\0");LSS[i][j].count_asisten=0;
+			}
+		}
 		printf ("Menu :\n");
 		printf ("1.Buat Proyek Baru\t\n");
 		printf ("2.Muat Proyek dari Berkas\t\n");
 		printf ("3.Keluar\n");
 		printf("Masukan: ");
-		scanf ("%d",&num);
+				//validasi input
+		char md[10];
+		do { 
+			scanf("%s", md);
+		} while (atoi(md)>3 && atoi(md)<1);
+		num=atoi(md);
+
 		if (num==1){
 			printf("===== Membuat Proyek Baru =====\n");
 			printf("Masukkan nama proyek: ");
@@ -58,7 +62,9 @@ int main()
 			menu_utama(filename,LAB1,LAB2,LAB3,LSS);
 		}
 		else if (num==2){
-			buka_proyek(LAB1,LAB2,LAB3,LSS);
+			printf("Masukkan nama proyek: ");
+			scanf("%s",filename);
+			load(filename,LAB1,LAB2,LAB3,LSS);
 			//Read contents from file
 			menu_utama(filename,LAB1,LAB2,LAB3,LSS);
 		}	
@@ -68,13 +74,12 @@ int main()
 
 void menu_utama(char *filename,jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_t (*LAB3)[5], jadwal_t (*LSS)[5]) {
 	int f=9;
-	char mode[10];
 	char rule[MAXCHAR];
 	jadwal_t praktikum;
 	char ruangan [10];
 	int hari, minggu;
 	while (f!=8){
-		printf("\n{Menu Utama} \n");
+		printf("{Menu Utama} \n");
 		printf("Pilih Mode: \n");
 		printf("    1. Tampilkan Schedule \n");
 		printf("    2. Schedule Manual \n");
@@ -82,11 +87,12 @@ void menu_utama(char *filename,jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_
 		printf("    4. Assign Asisten Manual \n");
 		printf("    5. Schedule Otomatis \n");
 		printf("    6. Asisten Otomatis \n");
-		printf("    7. Rule Checker \n");
+		printf("    7. Rule Chechker \n");
 		printf("    8. Simpan Proyek dan Keluar \n");
 		printf("Pilih Mode: ");
 		
 		//validasi input
+		char mode[10];
 		do { 
 			scanf("%s", mode);
 		} while (atoi(mode)>8 && atoi(mode)<1);
@@ -303,7 +309,7 @@ void menu_utama(char *filename,jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_
 		}
 		
 		else if (f==7){
-			printf("Masukkan File DRC (dalam format .txt): ");
+			printf("Mas1ukkan File DRC (dalam format .txt): ");
 			scanf("%s", rule);
 	
 			FILE *checker;
@@ -333,7 +339,7 @@ void menu_utama(char *filename,jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_
 							if (hari ==5)
 								printf("Pada Minggu ke-%d, Hari Jumat ada Libur Nasional\n",minggu+3);
 						}
-					}else 
+					}
 					if (rule[4]=='h'){
 						if (strcmp(LAB1[minggu][1].kode_praktikum,"")==0 && strcmp(LAB2[minggu][1].kode_praktikum,"")==0 && strcmp(LAB3[minggu][1].kode_praktikum,"")==0 &&strcmp(LSS[minggu][1].kode_praktikum,"")==0
 						 && strcmp(LAB1[minggu][2].kode_praktikum,"")==0 && strcmp(LAB2[minggu][2].kode_praktikum,"")==0 && strcmp(LAB3[minggu][2].kode_praktikum,"")==0 &&strcmp(LSS[minggu][2].kode_praktikum,"")==0
@@ -350,8 +356,8 @@ void menu_utama(char *filename,jadwal_t (*LAB1)[5], jadwal_t (*LAB2)[5], jadwal_
 		printf("\n");
 	}
 	Simpan (filename,LAB1,LAB2,LAB3,LSS);
-	printf("Rombongan disimpan dalam berkas %s",filename);
-	printf("Asisten disimpan dalam berkas %s",filename);
+	printf("Rombongan disimpan dalam berkas %s\n",filename);
+	printf("Asisten disimpan dalam berkas %s\n",filename);
 	return;
 }
 
@@ -362,5 +368,6 @@ void scan_jadwal(jadwal_t *input) {
 	scanf("%s",input->Rombongan);
 	printf("Asisten: ");
 	scanf("%s",input->nama_asisten);
-}
+	  	
+	}
 
